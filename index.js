@@ -36,12 +36,15 @@ const Duckeys = {
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
     const encryptedData = bf.encode(rawData)
-    return encryptedData
+    return btoa(String.fromCharCode.apply(null, encryptedData))
   },
   decrypt: function (key, encryptedData) {
+    let uint8ArrayDecoded = new Uint8Array(atob(encryptedData).split('').map(function (c) {
+      return c.charCodeAt(0)
+    }))
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
-    const decryptedData = bf.decode(encryptedData, Blowfish.TYPE.STRING)
+    const decryptedData = bf.decode(uint8ArrayDecoded, Blowfish.TYPE.STRING)
     let decryptedDataArray = decryptedData.split(' ', 4)
     let dataLength = parseInt(decryptedDataArray[3])
     let data = decryptedDataArray[4]

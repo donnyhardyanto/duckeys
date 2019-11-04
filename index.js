@@ -36,13 +36,12 @@ const Duckeys = {
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
     const encryptedData = bf.encode(rawData)
-    return new TextEncoder('base64').encode(encryptedData)
+    return encryptedData
   },
   decrypt: function (key, encryptedData) {
-    let s = new TextDecoder('base64').decode(encryptedData)
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
-    const decryptedData = bf.decode(s, Blowfish.TYPE.STRING)
+    const decryptedData = bf.decode(encryptedData, Blowfish.TYPE.STRING)
     let decryptedDataArray = decryptedData.split(' ', 4)
     let dataLength = parseInt(decryptedDataArray[3])
     let data = decryptedDataArray[4]

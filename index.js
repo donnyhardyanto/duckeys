@@ -46,7 +46,8 @@ const Duckeys = {
     }
   },
   decrypt: function (key, encryptedData) {
-    let uint8ArrayDecoded = new Uint8Array(this.shim_atob(encryptedData).split('').map(function (c) {
+    let s1 = this.shim_atob(encryptedData)
+    let uint8ArrayDecoded = new Uint8Array(s1.split('').map(function (c) {
       return c.charCodeAt(0)
     }))
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)

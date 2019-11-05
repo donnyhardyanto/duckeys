@@ -42,7 +42,7 @@ const Duckeys = {
     try {
       return atob(s)
     } catch (err) {
-      return require('atob')
+      return require('atob').atob(s)
     }
   },
   decrypt: function (key, encryptedData) {

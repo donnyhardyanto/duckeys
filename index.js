@@ -33,10 +33,11 @@ const Duckeys = {
     let salt = shortid.generate()
     let saltLength = salt.length
     let rawData = saltLength.toString() + ' ' + salt + ' ' + dataHash + ' ' + dataLength.toString() + ' ' + data
-    const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
+    return rawData
+    /* const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
     const encryptedData = bf.encode(rawData)
-    return encryptedData
+    return encryptedData */
     // return btoa(String.fromCharCode.apply(null, encryptedData))
   },
   shim_atob: function (s) {
@@ -47,13 +48,16 @@ const Duckeys = {
     }
   },
   decrypt: function (key, encryptedData) {
-    /* let s1 = this.shim_atob(encryptedData)
+    /*
+    let s1 = this.shim_atob(encryptedData)
     let uint8ArrayDecoded = new Uint8Array(s1.split('').map(function (c) {
       return c.charCodeAt(0)
-    })) */
+    }))
     const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.NULL)
     bf.setIv('12345678')
     const decryptedData = bf.decode(encryptedData, Blowfish.TYPE.STRING)
+    */
+    let decryptedData = encryptedData
     let decryptedDataArray = decryptedData.split(' ', 4)
     let dataLength = parseInt(decryptedDataArray[3])
     let data = decryptedDataArray[4]

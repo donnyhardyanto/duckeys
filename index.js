@@ -58,7 +58,7 @@ const Duckeys = {
     const decryptedData = bf.decode(encryptedData, Blowfish.TYPE.STRING)
     */
     let decryptedData = encryptedData
-    let decryptedDataArray = decryptedData.split(' ', 4)
+    let decryptedDataArray = decryptedData.split(' ', 5)
     let dataLength = parseInt(decryptedDataArray[3])
     let data = decryptedDataArray[4]
     data.slice(0, dataLength - 1)

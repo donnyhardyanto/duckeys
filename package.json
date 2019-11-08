@@ -9,6 +9,8 @@
   "author": "Donny Hardyanto",
   "license": "MIT",
   "dependencies": {
-    "atob": "^2.1.2"
+    "atob": "^2.1.2",
+    "egoroof-blowfish": "^2.2.0",
+    "shortid": "^2.2.15"
   }
 }

@@ -25,7 +25,7 @@ const Duckeys = {
             b: self.hash(b + a)
         }
     },
-    encrypt: function (key, data) {
+    encrypt: function (iv, key, data) {
         let dataHash = this.hash(data)
         let dataLength = data.length
         let x = dataLength % 8
@@ -33,7 +33,6 @@ const Duckeys = {
         let salt = shortid.generate()
         let saltLength = salt.length
         let rawData = saltLength.toString() + "\x01" + salt + "\x01" + dataHash + "\x01" + dataLength.toString() + "\x01" + data
-        let iv = new Uint8Array(8)
         const bf = new Blowfish(key, Blowfish.MODE.CBC, Blowfish.PADDING.SPACE)
         bf.setIv(iv)
         const encryptedData = bf.encode(rawData)
@@ -62,7 +61,7 @@ const Duckeys = {
         data.slice(0, dataLength - 1)
         let calculatedDataHash = this.hash(data)
         if (calculatedDataHash!=datahash) {
-          throw new Error('KeyManager: Hash not consistent')
+            throw new Error('KeyManager: Hash not consistent')
         }
         return data
     }
